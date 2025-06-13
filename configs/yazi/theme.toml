@@ -1,0 +1,5 @@
+[mgr]
+cwd = {fg = "#ffff00"}
+hovered = {fg = "#00ffff"}
+#tab_active = {bg = "#0b0b0b"}
+#tab_inactive = {bg = "#0a0a0a"}
