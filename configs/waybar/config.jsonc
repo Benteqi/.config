@@ -1,0 +1,33 @@
+{
+	"layer": "bottom",
+		"position":"bottom",
+		"height":34,
+		"spacing":4,
+		"modules-left":["hyprland/workspaces"],
+		"modules-right":["network","clock"],
+		"network":{
+			"interface":"enp0s3",
+			"format":"{bandwidthTotalBits}",
+			"tooltip":true,
+			"tooltip-format":"Up: {bandwidthUpBits} \nDown: {bandwidthDownBits}"
+		},
+		"clock":{
+			"locale":"en_GB.UTF8",
+			"format":"{:L%H:%M%n%d.%m.%y}",
+			"tooltip-format":"<tt>{calendar}</tt>",
+			"calendar":{
+				"mode-mon-col":4,
+				"format":{
+					"months":"<span color='#0f0' font-weight='bold'>{}</span>",
+					"days":"{}",
+					"weekdays":"<span color='#00f'>{}</span>",
+					"today":"<span color='#f00'>{}</span>"
+				}
+			},
+			"actions":{
+				"on-click-middle":"mode",
+				"on-click-right":"shift_up",
+				"on-click":"shift_down"
+			}
+		}
+}

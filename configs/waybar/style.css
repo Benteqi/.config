@@ -1,0 +1,29 @@
+#waybar{
+	background:rgba(10,10,10,0.9);
+}
+#workspaces button{
+	color:rgba(176,176,176,0.9);
+	margin:0 3px;	
+border:1px solid rgba(176,176,176,0.9);
+}
+#workspaces button:first-child{
+	margin-left: 0;
+}
+/*
+#workspaces button.empty{
+	color:#aaa;
+}
+*/
+#workspaces button.active{
+	background:rgba(176,176,176,0.9);
+	color:rgba(10,10,10,0.9);
+}
+#clock{
+	color:rgba(176,176,176,0.9);
+	margin-right: 10px;
+	font-size: 0.8em;
+}
+#network{
+	margin-right: 10px;
+	font-size: 1.2em;
+}
