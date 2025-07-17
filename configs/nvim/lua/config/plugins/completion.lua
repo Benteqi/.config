@@ -21,5 +21,18 @@ return {
 		vim.keymap.set("n", "K", vim.diagnostic.open_float)
 
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+		require("lspconfig").lua_ls.setup{
+			capabilities = capabilities,
+			settings = {
+			Lua = {
+			diagnostics ={
+				enable = true,
+				globals = { "vim" }
+			}
+			}
+			}
+		}
+	end,
 	}
 }
