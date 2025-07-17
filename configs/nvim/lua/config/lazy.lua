@@ -10,4 +10,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
+	{ import = "config/plugins"}
 })
+vim.cmd.colorscheme("tokyonight") --This is here, so the custom plugin themes can stay in plugin confs
