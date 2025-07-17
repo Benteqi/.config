@@ -33,6 +33,9 @@ return {
 			}
 			}
 		}
+		require("lspconfig").clang.setup{
+			capabilities = capabilities,
+		}
 	end,
 	}
 }
