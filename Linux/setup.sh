@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Installing packages..."
-packages = ("fastfetch", "nvim", "hyprland", "wofi", "waybar")
+packages=("fastfetch" "nvim" "hyprland" "wofi" "waybar")
 for package in $packages; do
 	pacman -S $package
 done
