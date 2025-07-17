@@ -12,5 +12,14 @@ return {
 	},
 	fuzzy = { implementation = "prefer_rust_with_warning" },
 	}
+	},
+	{
+	"neovim/nvim-lspconfig",
+	dependencies = "saghen/blink.cmp",
+	config = function()
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+		vim.keymap.set("n", "K", vim.diagnostic.open_float)
+
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 	}
 }
