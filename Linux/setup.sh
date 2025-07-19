@@ -1,14 +1,8 @@
 #!/bin/bash
 echo "Installing packages..."
-<<<<<<< Updated upstream
-packages=("fastfetch" "nvim" "hyprland" "wofi" "waybar")
-for package in $packages; do
-	pacman -S $package
-=======
 packages = ("fastfetch" "nvim" "hyprland" "wofi" "waybar" "kitty" "wikiman" "arch-wiki-docs")
 for package in ${packages[@]}; do
 	sudo pacman -S --noconfirm  $package
->>>>>>> Stashed changes
 done
 
 echo "Enabling hyprland autostart..."
