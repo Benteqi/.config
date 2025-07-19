@@ -9,8 +9,8 @@ echo "Enabling hyprland autostart..."
 systemctl --user enable ~/config-git/Linux/hyprland.service
 
 echo "Linking config files..."
-for dir in ./configs; do
-	ln -s ./configs/$dir ~/.config/$dir
+for dir in $("dirname $0")/configs; do
+	ln -s $("dirname $0")/$dir ~/.config/$dir
 done
 
 echo "Done"
