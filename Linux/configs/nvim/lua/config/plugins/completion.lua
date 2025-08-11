@@ -36,6 +36,9 @@ return {
 		require("lspconfig").clang.setup{
 			capabilities = capabilities,
 		}
+		require("lspconfig").cssls.setup{
+			capabilities = capabilities,
+		}
 	end,
-	}
+	},
 }
