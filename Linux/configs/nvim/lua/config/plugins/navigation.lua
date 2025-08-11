@@ -3,6 +3,13 @@ return{
 	dependencies = {"nvim-lua/plenary.nvim"},
 	config = function()
 		require("telescope").setup({
+			defaults = {
+				file_ignore_patterns = {
+					"node_modules",
+					"__pycache__",
+					".exe",
+					".lnk",
+					".git"
 		})
 		-- Binds
 		vim.keymap.set("n", "<Leader>ff", require("telescope.builtin").find_files)
