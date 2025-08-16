@@ -10,6 +10,8 @@ return{
 					".exe",
 					".lnk",
 					".git"
+				}
+			}
 		})
 		-- Binds
 		vim.keymap.set("n", "<Leader>ff", require("telescope.builtin").find_files)
