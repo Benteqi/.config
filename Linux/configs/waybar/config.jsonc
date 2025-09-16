@@ -1,9 +1,10 @@
 {
 	"layer": "bottom",
-		"position":"bottom",
+		"position":"top",
 		"height":34,
 		"spacing":4,
 		"modules-left":["hyprland/workspaces"],
+		"modules-center":["hyprland/window"],
 		"modules-right":["network","clock"],
 		"network":{
 			"interface":"enp0s3",
@@ -14,7 +15,7 @@
 		"clock":{
 			"locale":"en_GB.UTF8",
 			"format":"{:L%H:%M%n%d.%m.%y}",
-			"tooltip-format":"<tt>{calendar}</tt>",
+			"tooltip-format":"<tt><span font-weight='bold'>{calendar}</span></tt>",
 			"calendar":{
 				"mode-mon-col":4,
 				"format":{

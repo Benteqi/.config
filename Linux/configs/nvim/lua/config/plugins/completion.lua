@@ -50,7 +50,7 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 		}
 		vim.api.nvim_create_autocmd("FileType",{
 				pattern = "css",
-				callback = function() 
+				callback = function()
 						vim.keymap.set("i", "{", "{}<Esc>i<CR><CR><Esc>k==i", {buffer = true})
 				end
 		})
