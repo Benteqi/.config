@@ -44,12 +44,12 @@ return{
 					}),
 					previewer = conf.file_previewer({}),
 					sorter = conf.generic_sorter({}),
-				}):find()
-			end
+				}):find() end
 
 			vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end)
 			vim.keymap.set("n", "<leader>hd", function() harpoon:list():remove() end)
-			vim.keymap.set("n", "<leader>hh", function() toggle_telescope(harpoon:list()) end)
+			--vim.keymap.set("n", "<leader>hh", function() toggle_telescope(harpoon:list()) end)
+			vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 			vim.keymap.set("n", "<leader>hc", function() harpoon:list():clear() end)
 
 			vim.keymap.set("n", "<leader>h1", function() harpoon:list():select(1) end)
