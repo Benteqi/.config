@@ -47,12 +47,16 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 		}
 		require("lspconfig").cssls.setup{
 			capabilities = capabilities,
+			cmd={"vscode-css-languageserver", "--stdio"},
 		}
 		vim.api.nvim_create_autocmd("FileType",{
 				pattern = "css",
 				callback = function()
-						vim.keymap.set("i", "{", "{}<Esc>i<CR><CR><Esc>k==i", {buffer = true})
+				vim.keymap.set("i", "{", "{}<Esc>i<CR><CR><Esc>ki<C-i>", {buffer = true})
 				end
+		})
+		require("lspconfig").emmet_language_server.setup({
+			capabilities = capabilities,
 		})
 	end,
 	},
