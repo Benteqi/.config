@@ -26,6 +26,9 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 			capabilities = capabilities,
 			settings = {
 			Lua = {
+			runtime = {
+				version = 'LuaJIT'
+			},
 			diagnostics ={
 				enable = true,
 				globals = { "vim" }
@@ -50,7 +53,8 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 			cmd={"vscode-css-languageserver", "--stdio"},
 		}
 		local function is_in_style_tag()
-			local row, _ = vim.api.nvim_win_get_cursor(0).unpack()
+			-- table.unpack = table.unpack or unpack -- Lua 5.1 compatibility, does not work
+			local row, _ = unpack(vim.api.nvim_win_get_cursor(0))-- using the deprecated unpack() instead of table.unpack
 			local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
 			local before, after = 0, 0
