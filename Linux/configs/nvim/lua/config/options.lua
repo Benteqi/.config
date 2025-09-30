@@ -5,4 +5,4 @@ vim.opt.ttyfast = true
 vim.opt.tabstop = shiftwidth
 vim.opt.shiftwidth = shiftwidth
 vim.opt.wrap = false
-vim.opt.mouse = 
+vim.opt.mouse = ""
