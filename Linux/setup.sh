@@ -2,7 +2,7 @@
 bash_dir=$(dirname $(readlink -f "$BASH_SOURCE"))
 
 echo "Installing packages..."
-packages=("fastfetch" "nvim" "hyprland" "wofi" "waybar" "kitty" "wikiman" "arch-wiki-docs" "vscode-langservers-extracted" "qutebrowser" "git" "less")
+packages=("fastfetch" "nvim" "hyprland" "wofi" "waybar" "kitty" "wikiman" "arch-wiki-docs" "vscode-langservers-extracted" "qutebrowser" "git" "less" "upower")
 for package in ${packages[@]}; do
 	sudo pacman -S --noconfirm --needed  $package
 done

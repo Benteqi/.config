@@ -1,34 +1,45 @@
 {
 	"layer": "bottom",
-		"position":"top",
-		"height":34,
-		"spacing":4,
-		"modules-left":["hyprland/workspaces"],
-		"modules-center":["hyprland/window"],
-		"modules-right":["network","clock"],
-		"network":{
-			"interface":"enp0s3",
-			"format":"{bandwidthTotalBits}",
-			"tooltip":true,
-			"tooltip-format":"Up: {bandwidthUpBits} \nDown: {bandwidthDownBits}"
-		},
-		"clock":{
-			"locale":"en_GB.UTF8",
-			"format":"{:L%H:%M%n%d.%m.%y}",
-			"tooltip-format":"<tt><span font-weight='bold'>{calendar}</span></tt>",
-			"calendar":{
-				"mode-mon-col":4,
-				"format":{
-					"months":"<span color='#0f0' font-weight='bold'>{}</span>",
-					"days":"{}",
-					"weekdays":"<span color='#00f'>{}</span>",
-					"today":"<span color='#f00'>{}</span>"
-				}
-			},
-			"actions":{
-				"on-click-middle":"mode",
-				"on-click-right":"shift_up",
-				"on-click":"shift_down"
+	"position":"top",
+	"height":34,
+	"spacing":4,
+	"modules-left":["hyprland/workspaces"],
+	"modules-center":["hyprland/window"],
+	"modules-right":["battery","network","clock"],
+	"network":{
+		"interface":"enp0s3",
+		"format":"{bandwidthTotalBits}",
+		"tooltip":true,
+		"tooltip-format":"Up: {bandwidthUpBits} \nDown: {bandwidthDownBits}"
+	},
+	"clock":{
+		"locale":"en_GB.UTF8",
+		"format":"{:L%H:%M%n%d.%m.%y}",
+		"tooltip-format":"<tt><span font-weight='bold'>{calendar}</span></tt>",
+		"calendar":{
+			"mode-mon-col":4,
+			"format":{
+				"months":"<span color='#0f0' font-weight='bold'>{}</span>",
+				"days":"{}",
+				"weekdays":"<span color='#00f'>{}</span>",
+				"today":"<span color='#f00'>{}</span>"
 			}
+		},
+		"actions":{
+			"on-click-middle":"mode",
+			"on-click-right":"shift_up",
+			"on-click":"shift_down"
 		}
+	},
+	"battery":{
+		"design-capacity":true,
+		"format-time":"{H}h {M}min",
+		"interval":30,
+		"states":{
+			"warning":20,
+			"critical":10	
+		},
+		"tooltip":true,
+		"tooltip-format":"<tt>Time: {time}</tt>"
+	}
 }

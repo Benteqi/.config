@@ -40,3 +40,15 @@ color:#aaa;
 #window{
 
 }
+#battery.full{
+	color:#00f;
+}
+#battery.warning{
+	color:#f80;
+}
+#battery.critical{
+	color:#f00;
+}
+#battery.charging{
+	color:#0f0;
+}
