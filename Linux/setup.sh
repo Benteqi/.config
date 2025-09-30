@@ -8,7 +8,7 @@ for package in ${packages[@]}; do
 done
 
 echo "Enabling hyprland autostart..."
-systemctl --user enable ~/config-git/Linux/hyprland.service
+systemctl --user enable $bash_dir/hyprland.service
 
 echo "Linking config files..."
 for dir in $bash_dir/configs/*/; do
