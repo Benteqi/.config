@@ -3,4 +3,4 @@ Type=simple
 [Service]
 ExecStart=/bin/hyprland
 [Install]
-WantedBy=default.target
+WantedBy=graphical.target
