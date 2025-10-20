@@ -21,8 +21,9 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 		vim.keymap.set("n", "K", vim.diagnostic.open_float)
 
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-		require("lspconfig").lua_ls.setup{
+		---[[
+		vim.lsp.config("lua_ls", {
+			filetypes={"lua"},
 			capabilities = capabilities,
 			settings = {
 			Lua = {
@@ -35,23 +36,36 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 			}
 			}
 			}
-		}
-		require("lspconfig").clang.setup{
+		})
+		--]]
+		---[[
+		vim.lsp.config("clang", {
+			filetypes={"c, cpp"},
 			capabilities = capabilities,
-		}
-		require("lspconfig").html.setup{
+		})
+		--]]
+
+--		local html_capabilites = capabilities
+--		html_capabilities.textDocument.completion.completionItem.snippetSupport = false
+		vim.lsp.config("html", {
 			capabilities = capabilities,
-			cmd={"vscode-html-languageserver", "--stdio"},
+			cmd={"vscode-html-language-server", "--stdio"},
 			filetypes={"html"},
 			init_options = {
 				embeddedLanguages = {css = true, javascript = true},
 				configurationSections = {'html', 'css', 'javascript'}
 			}
-		}
-		require("lspconfig").cssls.setup{
+		})
+		vim.lsp.config("cssls", {
+			filetypes={"css"},
 			capabilities = capabilities,
-			cmd={"vscode-css-languageserver", "--stdio"},
-		}
+			cmd={"vscode-css-language-server", "--stdio"},
+		})
+		vim.lsp.config("emmet_language_server", {
+			filetypes={"html"},
+			capabilities = capabilities,
+		})
+
 		local function is_in_style_tag()
 			-- table.unpack = table.unpack or unpack -- Lua 5.1 compatibility, does not work
 			local row, _ = unpack(vim.api.nvim_win_get_cursor(0))-- using the deprecated unpack() instead of table.unpack
@@ -90,9 +104,9 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 				vim.keymap.set("i", "{", "{}<Esc>i<CR><CR><Esc>ki<C-i>", {buffer = true})
 				end
 		})
-		require("lspconfig").emmet_language_server.setup({
-			capabilities = capabilities,
-		})
+
+		vim.lsp.enable({"emmet_language_server", "cssls", "html", "tsserver"})
+
 	end,
 	},
 }
