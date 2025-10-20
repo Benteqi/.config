@@ -101,11 +101,11 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 		vim.api.nvim_create_autocmd("FileType",{
 				pattern = "css",
 				callback = function()
-				vim.keymap.set("i", "{", "{}<Esc>i<CR><CR><Esc>ki<C-i>", {buffer = true})
+				vim.keymap.set("i", "{", "{}<Esc>i<CR><Esc>O", {buffer = true})
 				end
 		})
 
-		vim.lsp.enable({"emmet_language_server", "cssls", "html", "tsserver"})
+		vim.lsp.enable({"emmet_language_server", "cssls"})
 
 	end,
 	},
