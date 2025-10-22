@@ -7,7 +7,7 @@
 	"modules-center":["hyprland/window"],
 	"modules-right":["battery","network","clock"],
 	"network":{
-		"interface":"enp0s3",
+		"interface":"wlan0",
 		"format":"{bandwidthTotalBits}",
 		"tooltip":true,
 		"tooltip-format":"Up: {bandwidthUpBits} \nDown: {bandwidthDownBits}"
