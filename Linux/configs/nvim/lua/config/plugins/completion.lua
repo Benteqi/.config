@@ -8,8 +8,9 @@ return {
 	opts = {
 		appearance = { nerd_font_variant = "mono" },
 		completion = { documentation = {auto_show = true} },
-		sources = { default = { "lsp", "path", "snippets", "buffer" },
-},
+		sources = {
+			default = { "lsp", "path", "buffer"},
+		},
 fuzzy = { implementation = "prefer_rust_with_warning" },
 	}
 	},
@@ -45,8 +46,6 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 		})
 		--]]
 
---		local html_capabilites = capabilities
---		html_capabilities.textDocument.completion.completionItem.snippetSupport = false
 		vim.lsp.config("html", {
 			capabilities = capabilities,
 			cmd={"vscode-html-language-server", "--stdio"},
