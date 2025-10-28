@@ -64,7 +64,11 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 			filetypes={"html"},
 			capabilities = capabilities,
 		})
-
+		vim.lsp.config("tsserver", {
+			cmd={"typescript-language-server", "--stdio"},
+			filetypes={"javascript", "typescript"},
+			capabilities = capabilities,
+		})
 		local function is_in_style_tag()
 			-- table.unpack = table.unpack or unpack -- Lua 5.1 compatibility, does not work
 			local row, _ = unpack(vim.api.nvim_win_get_cursor(0))-- using the deprecated unpack() instead of table.unpack
@@ -104,7 +108,7 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 				end
 		})
 
-		vim.lsp.enable({"emmet_language_server", "cssls"})
+		vim.lsp.enable({"emmet_language_server", "cssls", "tsserver", "html"})
 
 	end,
 	},
