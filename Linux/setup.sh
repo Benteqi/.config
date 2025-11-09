@@ -16,5 +16,6 @@ for dir in $bash_dir/configs/*/; do
 	dir="${dir##*/}"
 	ln -fs $bash_dir/configs/$dir ~/.config/$dir
 done
+ln -fs $bash_dir/.bashrc ~/.bashrc
 
 echo "Done"
