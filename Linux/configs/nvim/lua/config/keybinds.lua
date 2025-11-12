@@ -17,6 +17,7 @@ local function auto_comment()
 		javascript = {"//"},
 		lua = {"--"},
 		python = {"#"},
+		hyprlang = {"#"},
 	}
 	local syntax_visual = {
 		html = {"<!--", "-->"},
@@ -26,7 +27,7 @@ local function auto_comment()
 		javascript = {"/*", "*/"},
 		lua = {"--[[", "--]]"},
 	}
-	if vim.fn.mode() == "n" then 
+	if vim.fn.mode() == "n" then
 		local line = vim.fn.getline('.')
 		if syntax_normal[vim.bo.filetype] == nil then
 			print("Unsupported filetype!")
@@ -53,7 +54,7 @@ local function auto_comment()
 		local finish = vim.fn.getline(vim.fn.line("'>") + 1)
 		local comment = syntax_visual[vim.bo.filetype]
 		if (start:gsub("%s", "") == comment[1] and (comment[2] == nil or finish:gsub("%s", "") == comment[2])) then
-			keys = "<ESC>\'<kdd" 
+			keys = "<ESC>\'<kdd"
 			if(comment[2]) then
 				keys = keys .. "\'>jdd"
 			end
@@ -63,7 +64,7 @@ local function auto_comment()
 				keys = keys .. "\'>o" .. comment[2] .. "<ESC>"
 			end
 		end
-	else 
+	else
 		print("Unknown mode:", vim.fn.mode())
 		return ""
 	end
@@ -72,7 +73,7 @@ local function auto_comment()
 	return keys
 end
 
-vim.keymap.set("x", "<C-/>", auto_comment, { expr = true})
+vim.keymap.set({"n", "v"}, "<C-/>", auto_comment, { expr = true})
 --]=]
 local function is_in_style_tag()
 	-- table.unpack = table.unpack or unpack -- Lua 5.1 compatibility, does not work
