@@ -28,13 +28,17 @@ local function auto_comment()
 		lua = {"--[[", "--]]"},
 	}
 	if vim.fn.mode() == "n" then
-		local line = vim.fn.getline('.')
+		local line = vim.fn.getline('.'):gsub("^%s*(.-)%s*$", "%1")
 		if syntax_normal[vim.bo.filetype] == nil then
 			print("Unsupported filetype!")
 			return ""
 		end
 		local comment = syntax_normal[vim.bo.filetype]
-		if (string.sub(line:gsub("^%s*(.-)%s*$", "%1"), 1, #(comment[1]) + 1)) == comment[1] .. " " and (comment[2] == nil or ((string.sub(line:gsub("^%s*(.-)%s*$", "%1"), #line - #(comment[1]), #line)) == " " .. comment[2])) then
+		local start = string.sub(line, 1, #comment[1] + 1)
+		local finish = (string.sub(line, #line - #(comment[2]), #line))
+		print(#comment[2] + 1)
+		print("'" .. finish .. "'")
+		if start == comment[1] .. " " and (comment[2] == nil or finish == " " .. comment[2]) then
 			keys = "^" .. string.rep("x", #(comment[1])+1)
 			if(comment[2]) then
 				keys = keys .. "$" .. string.rep("x", #(comment[2])+1)
@@ -68,8 +72,6 @@ local function auto_comment()
 		print("Unknown mode:", vim.fn.mode())
 		return ""
 	end
-	print("Keys returned!")
-	print(keys)
 	return keys
 end
 
