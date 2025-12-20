@@ -35,9 +35,12 @@ local function auto_comment()
 		end
 		local comment = syntax_normal[vim.bo.filetype]
 		local start = string.sub(line, 1, #comment[1] + 1)
-		local finish = (string.sub(line, #line - #(comment[2]), #line))
-		print(#comment[2] + 1)
-		print("'" .. finish .. "'")
+		local finish = ""
+		if (comment[2]) then
+			finish = (string.sub(line, #line - #(comment[2]), #line))
+			print(#comment[2] + 1)
+			print("'" .. finish .. "'")
+		end
 		if start == comment[1] .. " " and (comment[2] == nil or finish == " " .. comment[2]) then
 			keys = "^" .. string.rep("x", #(comment[1])+1)
 			if(comment[2]) then
