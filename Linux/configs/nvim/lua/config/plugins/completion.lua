@@ -103,7 +103,7 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 			capabilities = capabilities,
 		})
 
-		vim.lsp.enable({"emmet_language_server", "cssls", "tsserver", "html", "lua_ls"})
+		vim.lsp.enable({"cssls", "tsserver", "html", "lua_ls", "emmet-language-server"})
 
 	end,
 	},
