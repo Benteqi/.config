@@ -1,6 +1,6 @@
 [Unit]
 Type=simple
 [Service]
-ExecStart=/bin/hyprland
+ExecStart=/bin/start-hyprland
 [Install]
 WantedBy=graphical.target
