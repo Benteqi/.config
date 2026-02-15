@@ -78,6 +78,7 @@ local function auto_comment()
 	return keys
 end
 
+vim.keymap.set({"n", "v"}, "<C-_>", auto_comment, { expr = true}) -- Windows terminal issue
 vim.keymap.set({"n", "v"}, "<C-/>", auto_comment, { expr = true})
 --]=]
 local function is_in_style_tag()
