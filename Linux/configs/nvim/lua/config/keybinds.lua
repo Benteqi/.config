@@ -6,8 +6,47 @@ vim.keymap.set("n", "<Up>", "<Nop>")
 vim.keymap.set("n", "<Down>", "<Nop>")
 vim.keymap.set("n", "<Right>", "<Nop>")
 vim.keymap.set("n", "<Left>", "<Nop>")
----[=[
+local function is_between(begin, finish)
+	-- table.unpack = table.unpack or unpack -- Lua 5.1 compatibility, does not work
+	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))-- using the deprecated unpack() instead of table.unpack
+	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+	local before, after = 0, 0
+	for i = 1, row do
+		if lines[i]:find(begin) then
+			before = i
+		end
+		if lines[i]:find(finish) then
+			after = i
+			break
+		end
+	end
+	return before > 0 and (after == 0 or row <= after)
+end
+
+local function smart_curly_brace()
+	if is_between("<style[^>]*>", "</style>") then
+		return "{}<Esc>i<CR><CR><Esc>ki<C-i>"
+	else
+		return "{"
+	end
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "html",
+	callback = function()
+		vim.keymap.set("i", "{", smart_curly_brace, { expr = true, buffer = true })
+	end,
+})
+vim.api.nvim_create_autocmd("FileType",{
+	pattern = {"css", "hyprlang"},
+	callback = function()
+		vim.keymap.set("i", "{", "{}<Esc>i<CR><Esc>O", {buffer = true})
+	end
+})
+
 local function auto_comment()
+	print("Called!")
 	local keys = ""
 	local syntax_normal = {
 		html = {"<!--", "-->"},
@@ -27,24 +66,31 @@ local function auto_comment()
 		javascript = {"/*", "*/"},
 		lua = {"--[[", "--]]"},
 	}
+	local filetype = vim.bo.filetype
+	if filetype == "html" then
+		if is_between("<style[^>]*>", "</style>") then
+			filetype = "css"
+		end
+		if is_between("<script[^>]*>", "</script>") then
+			filetype = "javascript"
+		end
+	end
 	if vim.fn.mode() == "n" then
 		local line = vim.fn.getline('.'):gsub("^%s*(.-)%s*$", "%1")
-		if syntax_normal[vim.bo.filetype] == nil then
+		if syntax_normal[filetype] == nil then
 			print("Unsupported filetype!")
 			return ""
 		end
-		local comment = syntax_normal[vim.bo.filetype]
+		local comment = syntax_normal[filetype]
 		local start = string.sub(line, 1, #comment[1] + 1)
-		local finish = ""
-		if (comment[2]) then
-			finish = (string.sub(line, #line - #(comment[2]), #line))
-			print(#comment[2] + 1)
-			print("'" .. finish .. "'")
-		end
-		if start == comment[1] .. " " and (comment[2] == nil or finish == " " .. comment[2]) then
-			keys = "^" .. string.rep("x", #(comment[1])+1)
+		if start == comment[1] .. " " then
 			if(comment[2]) then
-				keys = keys .. "$" .. string.rep("x", #(comment[2])+1)
+				local finish = (string.sub(line, #line - #(comment[2]), #line))
+				if finish == " " .. comment[2] then 
+					keys = "^" .. string.rep("x", #(comment[1])+1) .. "$" .. string.rep("x", #(comment[2])+1)
+				end
+			else
+				keys = "^" .. string.rep("x", #(comment[1])+1) 
 			end
 		else
 			keys = "^i" .. comment[1] .. " <ESC>"
@@ -53,13 +99,13 @@ local function auto_comment()
 			end
 		end
 	elseif vim.fn.mode() == "v" or vim.fn.mode() == "V" then
-		if syntax_visual[vim.bo.filetype] == nil then
+		if syntax_visual[filetype] == nil then
 			print("Unsupported filetype!")
 			return ""
 		end
 		local start = vim.fn.getline(vim.fn.line("'<") - 1)
 		local finish = vim.fn.getline(vim.fn.line("'>") + 1)
-		local comment = syntax_visual[vim.bo.filetype]
+		local comment = syntax_visual[filetype]
 		if (start:gsub("%s", "") == comment[1] and (comment[2] == nil or finish:gsub("%s", "") == comment[2])) then
 			keys = "<ESC>\'<kdd"
 			if(comment[2]) then
@@ -75,47 +121,8 @@ local function auto_comment()
 		print("Unknown mode:", vim.fn.mode())
 		return ""
 	end
+	print(keys)
 	return keys
 end
-
 vim.keymap.set({"n", "v"}, "<C-_>", auto_comment, { expr = true}) -- Windows terminal issue
 vim.keymap.set({"n", "v"}, "<C-/>", auto_comment, { expr = true})
---]=]
-local function is_in_style_tag()
-	-- table.unpack = table.unpack or unpack -- Lua 5.1 compatibility, does not work
-	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))-- using the deprecated unpack() instead of table.unpack
-	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-
-	local before, after = 0, 0
-	for i = 1, row do
-		if lines[i]:find("<style[^>]*>") then
-			before = i
-		end
-		if lines[i]:find("</style>") then
-			after = i
-			break
-		end
-	end
-	return before > 0 and (after == 0 or row <= after)
-end
-
-local function smart_curly_brace()
-	if is_in_style_tag() then
-		return "{}<Esc>i<CR><CR><Esc>ki<C-i>"
-	else
-		return "{"
-	end
-end
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "html",
-	callback = function()
-		vim.keymap.set("i", "{", smart_curly_brace, { expr = true, buffer = true })
-	end,
-})
-vim.api.nvim_create_autocmd("FileType",{
-	pattern = {"css", "hyprlang"},
-	callback = function()
-		vim.keymap.set("i", "{", "{}<Esc>i<CR><Esc>O", {buffer = true})
-	end
-})
