@@ -58,7 +58,7 @@
             "type": "disk",
             "key": "Disk",
             "folders": "/"
-        }
+        },
 //	,
 //        {
 //            "type": "localip",
@@ -71,5 +71,9 @@
 //            "key": "WAN IP",
 //            "timeout": 1000
 //       }
+		{
+			"type": "battery",
+			// "temp": true
+		}
     ]
 }
