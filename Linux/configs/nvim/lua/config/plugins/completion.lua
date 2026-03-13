@@ -70,13 +70,18 @@ return {
 						Lua = {}
 					}
 				})
-		--]]
-		---[[
+
+		vim.lsp.config("roslyn_ls", {
+			filetypes = { "cs" },
+			cmd = { "csharp-language-server" },
+			-- root_markers = { ".git", ".csproj" },
+			root_dir = vim.fs.root(vim.fn.getcwd(), {"*.git","*.csproj"} ),
+			capabilities = capabilities,
+		})
 		vim.lsp.config("clang", {
 			filetypes={"c, cpp"},
 			capabilities = capabilities,
 		})
-		--]]
 
 		vim.lsp.config("html", {
 			capabilities = capabilities,
