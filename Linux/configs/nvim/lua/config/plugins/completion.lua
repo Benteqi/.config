@@ -11,7 +11,7 @@ return {
 		sources = {
 			default = { "lsp", "path", "buffer"},
 		},
-fuzzy = { implementation = "prefer_rust_with_warning" },
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 	}
 	},
 	{
@@ -22,7 +22,6 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 		vim.keymap.set("n", "K", vim.diagnostic.open_float)
 
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
-		---[[
 		vim.lsp.config('lua_ls', {
 			on_init = function(client)
 				if client.workspace_folders then
@@ -93,8 +92,9 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 			capabilities = capabilities,
 			cmd={"vscode-css-language-server", "--stdio"},
 		})
-		vim.lsp.config("emmet_language_server", {
+		vim.lsp.config("emmet-language-server", {
 			filetypes={"html"},
+			cmd={"emmet-language-server", "--stdio"},
 			capabilities = capabilities,
 		})
 		vim.lsp.config("tsserver", {
@@ -103,7 +103,14 @@ fuzzy = { implementation = "prefer_rust_with_warning" },
 			capabilities = capabilities,
 		})
 
-		vim.lsp.enable({"cssls", "tsserver", "html", "lua_ls", "emmet-language-server"})
+		vim.lsp.enable({
+			"html",
+			"emmet-language-server",
+			"cssls",
+			"tsserver",
+			"lua_ls",
+			"roslyn_ls",
+		})
 
 	end,
 	},
