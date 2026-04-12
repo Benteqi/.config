@@ -6,6 +6,23 @@ vim.keymap.set("n", "<Up>", "<Nop>")
 vim.keymap.set("n", "<Down>", "<Nop>")
 vim.keymap.set("n", "<Right>", "<Nop>")
 vim.keymap.set("n", "<Left>", "<Nop>")
+local wrap = false
+function ToggleWrap()
+	if(wrap) then
+		vim.keymap.del({"n", "v"}, "k")
+		vim.keymap.del({"n", "v"}, "j")
+		wrap = false
+		vim.opt.wrap = false
+		vim.opt.linebreak = false
+	else
+		vim.keymap.set({"n", "v"}, "k", "gk")
+		vim.keymap.set({"n", "v"}, "j", "gj")
+		vim.opt.wrap = true
+		vim.opt.linebreak = true
+		wrap = true
+	end
+
+end
 local function is_between(begin, finish)
 	-- table.unpack = table.unpack or unpack -- Lua 5.1 compatibility, does not work
 	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))-- using the deprecated unpack() instead of table.unpack
