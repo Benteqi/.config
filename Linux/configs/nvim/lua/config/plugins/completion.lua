@@ -107,6 +107,11 @@ return {
 			filetypes={"javascript", "typescript"},
 			capabilities = capabilities,
 		})
+		vim.lsp.config("zuban", {
+			cmd={"zuban", "server"},
+			filetypes={ "python" },
+			capabilities = capabilities,
+		})
 
 		vim.lsp.enable({
 			"html",
@@ -115,6 +120,7 @@ return {
 			"tsserver",
 			"lua_ls",
 			"roslyn_ls",
+			"zuban",
 		})
 
 	end,
