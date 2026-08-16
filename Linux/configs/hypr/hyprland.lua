@@ -53,93 +53,74 @@ hl.config({
 		enabled = false,
 	},
 
-	-- dwindle {
-		--     pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-		--     preserve_split = true # You probably want this
-		-- }
+	misc = {
+		force_default_wallpaper = -1, -- Set to 0 or 1 to disable the anime mascot wallpapers
+		disable_hyprland_logo = false, -- If true disables the random hyprland logo / anime girl background. :(
+		},
 
+		input = {
+			kb_layout = "pl",
+			--[[ 
+			kb_variant =
+			kb_model =
+			kb_options =
+			kb_rules =
+			--]]
 
-		misc = {
-			force_default_wallpaper = -1, -- Set to 0 or 1 to disable the anime mascot wallpapers
-			disable_hyprland_logo = false, -- If true disables the random hyprland logo / anime girl background. :(
+			sensitivity = 0, -- -1.0 - 1.0
+		},
+
+		-- See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
+		device = {
+		},
+
+		debug = {
+			disable_logs = false
+		},
+		ecosystem = {
+			no_update_news = true
+		},
+		group = {
+			col = {
+				border_active = { colors = { active_gradient_start, active_gradient_end }},
 			},
-
-			input = {
-				kb_layout = "pl",
-				--[[ 
-				kb_variant =
-				kb_model =
-				kb_options =
-				kb_rules =
-				--]]
-
-				follow_mouse = 1,
-
-				sensitivity = 0, -- -1.0 - 1.0
-
-				touchpad = {
-					natural_scroll = false
-				}
-			},
-
-			-- See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
-			device = {
-			},
-
-			debug = {
-				disable_logs=false
-			},
-			ecosystem = {
-				no_update_news=true
-			},
-			group = {
+			groupbar = {
 				col = {
-					border_active = { colors = { active_gradient_start, active_gradient_end }},
+					active = { colors = { active_gradient_start, active_gradient_end }},
+					inactive = { colors = { inactive_gradient_start, inactive_gradient_end }},
 				},
-				groupbar = {
-					col = {
-						active = { colors = { active_gradient_start, active_gradient_end }},
-						inactive = { colors = { inactive_gradient_start, inactive_gradient_end }},
-					},
-					font_size = 0,
-					height = 0,
-				},
-			}
-		})
+				font_size = 0,
+				height = 0,
+			},
+		},
+	})
 
+	-- Ignore maximize requests from apps. You'll probably like this.
+	hl.window_rule({
+		match = { class = ".*" },
+		suppress_event = "maximize"
+	})
 
---#############################
---## WINDOWS AND WORKSPACES ###
---#############################
+	-- Fix some dragging issues with XWayland
+	hl.window_rule({
+		match = {
+			class = "^$",
+			title = "^$",
+			xwayland = "1",
+			float = "1",
+			fullscreen = "0",
+			pin = "0",
+		},
+		no_focus = true
+	})
 
--- Ignore maximize requests from apps. You'll probably like this.
-hl.window_rule({
-	match = {
-		class = ".*" ,
-	},
-	suppress_event = "maximize"
-})
-
--- Fix some dragging issues with XWayland
-hl.window_rule({
-	match = {
-		class = "^$",
-		title = "^$",
-		xwayland = "1",
-		float = "1",
-		fullscreen = "0",
-		pin = "0",
-	},
-no_focus = true
-})
-
--- Fix popups getting unnecessarily dimed
-hl.window_rule({
-	match = { 
-		class = "Godot|steam",
-		title ="^$",
-	},
-	no_dim = true
-})
+	-- Fix popups getting unnecessarily dimed
+	hl.window_rule({
+		match = { 
+			class = "Godot|steam",
+			title ="^$",
+		},
+		no_dim = true
+	})
 
 
