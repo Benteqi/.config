@@ -116,9 +116,16 @@ hl.config({
 
 	-- Fix popups getting unnecessarily dimed
 	hl.window_rule({
-		match = { 
+		match = {
 			class = "Godot|steam",
 			title ="^$",
+		},
+		no_dim = true
+	})
+	hl.window_rule({
+		match = {
+			class = "vlc",
+			title = "vlc",
 		},
 		no_dim = true
 	})
